@@ -1,5 +1,6 @@
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,11 @@ import java.util.List;
 @Controller
 public class CarsController {
 
+	@Autowired
+	CarService carService;
+
 	@GetMapping(value = "/cars")
 	public String printWelcome(ModelMap model, @RequestParam(value = "count", defaultValue = "9223372036") Long count) {
-		CarService carService = new CarServiceImpl();
 		model.addAttribute("cars", carService.getNumberOfCars(count));
 		return "cars";
 	}
